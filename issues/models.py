@@ -120,7 +120,7 @@ class IssueStateChange(models.Model):
     STATE_MAX_LENGTH = 20
     DEFAULT_STATE = State.TO_DO
 
-    issue = models.ForeignKey(Issue, on_delete=models.RESTRICT)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
     new_state = models.CharField(
         max_length=STATE_MAX_LENGTH, choices=State.choices, default=DEFAULT_STATE
     )
