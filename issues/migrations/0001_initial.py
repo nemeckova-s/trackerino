@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50, unique=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
-            options={'verbose_name_plural': 'categories',},
+            options={'verbose_name_plural': 'categories'},
         ),
         migrations.CreateModel(
             name='Issue',

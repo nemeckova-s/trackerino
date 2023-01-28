@@ -2,6 +2,12 @@
 
 Using Python 3.9.9
 
+## To install:
+```
+$ pip install -r requirements.txt
+$ pip install -r requirements-dev.txt
+```
+
 ## To start a development server:
 ```
 $ python manage.py runserver
@@ -13,15 +19,21 @@ $ pip install oitnb
 $ oitnb .
 ```
 
+## To lint the code:
+```
+$ flake8
+```
+
 ## To run all tests:
 ```
 $ python manage.py test
 ```
 
-## To update requirements.txt:
+## To update requirements.txt or requirements-dev.txt:
 ```
 $ pip install pip-tools
 $ pip-compile
+$ pip-compile requirements-dev.txt
 ```
 
 ## To prepare and run migrations: 
