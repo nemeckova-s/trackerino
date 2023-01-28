@@ -30,3 +30,9 @@ $ python manage.py migrate
 ```
 $ python manage.py createsuperuser
 ```
+
+## To call the API:
+```
+$ curl http://localhost:8000/api/issues/ -H "Authorization: Token <auth token>"
+$ curl http://localhost:8000/api/issues/<issue ID> -H "Authorization: Token <auth token>"
+```
