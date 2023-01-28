@@ -18,10 +18,35 @@ class IssueAdmin(admin.ModelAdmin):
     search_fields = ('description__startswith',)
     form = IssueForm
 
+    def _has_view_permission(self, request) -> bool:
+        if not request.user.is_authenticated:
+            return False
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return self._has_view_permission(request)
+
+    def has_module_permission(self, request):
+        return self._has_view_permission(request)
+
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context['resolving_times'] = Issue.objects.get_resolving_times()
         return super(IssueAdmin, self).changelist_view(request, extra_context=extra_context)
 
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    ordering = ('name',)
+
+    def _has_view_permission(self, request) -> bool:
+        if not request.user.is_authenticated:
+            return False
+        return request.user.is_staff
+
+    def has_view_permission(self, request, obj=None):
+        return self._has_view_permission(request)
+
+    def has_module_permission(self, request):
+        return self._has_view_permission(request)
