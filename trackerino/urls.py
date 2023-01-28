@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-admin.site.site_header = "Trackerino"
-admin.site.site_title = "Trackerino administration"
-admin.site.index_title = "Welcome to Trackerino administration"
+admin.site.site_header = 'Trackerino'
+admin.site.site_title = 'Trackerino administration'
+admin.site.index_title = 'Welcome to Trackerino administration'
