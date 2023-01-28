@@ -1,5 +1,7 @@
 # Trackerino
 
+Using Python 3.9.9
+
 ## To start a development server:
 ```
 $ python manage.py runserver
