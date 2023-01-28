@@ -4,9 +4,10 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models, transaction, connection
+from django.utils import timezone
 from django.utils.translation import gettext_lazy
 
-from issues.resolving_times import TimeDeltas
+from issues.time_deltas import TimeDeltas
 
 
 class Category(models.Model):
@@ -17,7 +18,7 @@ class Category(models.Model):
     CATEGORY_MAX_LENGTH = 50
 
     name = models.CharField(max_length=CATEGORY_MAX_LENGTH, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
         verbose_name_plural = 'categories'
@@ -99,9 +100,13 @@ class Issue(models.Model):
                 self._set_new_state = None
                 self.update_state(new_state)
 
-    def update_state(self, new_state: IssueStateChange.State):
+    def update_state(
+        self, new_state: IssueStateChange.State, occurred_at: timezone.datetime | None = None
+    ):
+        if occurred_at is None:
+            occurred_at = timezone.now()
         self.last_state_change = IssueStateChange.objects.create(
-            issue=self, new_state=new_state,
+            issue=self, new_state=new_state, occurred_at=occurred_at
         )
         self.save(update_fields=('last_state_change_id',))
 
@@ -124,7 +129,7 @@ class IssueStateChange(models.Model):
     new_state = models.CharField(
         max_length=STATE_MAX_LENGTH, choices=State.choices, default=DEFAULT_STATE
     )
-    occurred_at = models.DateTimeField(auto_now_add=True)
+    occurred_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.new_state

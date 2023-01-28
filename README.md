@@ -13,6 +13,11 @@ $ pip install oitnb
 $ oitnb .
 ```
 
+## To run all tests:
+```
+$ python manage.py test
+```
+
 ## To update requirements.txt:
 ```
 $ pip install pip-tools
